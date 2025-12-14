@@ -1,0 +1,393 @@
+/* ===== Base Styles ===== */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* ===== Theme Variables ===== */
+:root {
+  --bg-gradient: linear-gradient(to right, #d3f3ff, #e6f0ff);
+  --section-bg: rgba(255, 255, 255, 0.25);
+  --text-color: #222;
+  --accent: #6c63ff;
+  --accent-hover: #574b90;
+  --danger: #e74c3c;
+  --danger-hover: #c0392b;
+
+  --bar-gradient: linear-gradient(to right, #6dd5ed, #2193b0);
+}
+
+body.dark-mode {
+  --bg-gradient: linear-gradient(135deg, #1f1c2c, #928dab);
+  --section-bg: rgba(44, 62, 80, 0.4);
+  --text-color: #f0f0f0;
+  --accent: #ff7eb3;
+  --accent-hover: #ff527b;
+  --danger: #ff5252;
+  --danger-hover: #e63946;
+
+  --bar-gradient: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+
+/* ===== Top Bar ===== */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(44, 62, 80, 0.9);
+  color: white;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.top-bar h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.top-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-btn,
+.dropdown button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.nav-btn:hover,
+.dropdown button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+
+/* ===== Dropdown ===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background: var(--section-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  min-width: 180px;
+  overflow: hidden;
+  z-index: 200;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: var(--text-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* ===== Intro Section ===== */
+.intro {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: var(--section-bg);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+}
+
+.intro h3 {
+  font-size: 1.7rem;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+
+/* ===== Quote Box ===== */
+.quote-box {
+  margin: 26px auto 0;
+  padding: 18px 22px;
+  max-width: 600px;
+  text-align: center;
+  font-size: 1.15rem;
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--text-color);
+  border-left: 5px solid var(--accent);
+  border-radius: 14px;
+  font-style: italic;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.5s ease;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ===== Layout ===== */
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  max-width: 1200px;
+}
+
+
+/* ===== Input Card ===== */
+.input-card {
+  flex: 1;
+  min-width: 350px;
+  background: var(--section-bg);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ===== SELECT METHOD BUTTONS ===== */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin: 18px 0 26px;
+}
+
+.toggle-buttons button {
+  background: var(--accent);
+  color: white;
+  padding: 12px 26px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  transition: 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.toggle-buttons button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-3px);
+}
+
+.toggle-buttons button.active-mode {
+  background: var(--accent-hover);
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+}
+
+
+/* ===== METHOD CARDS (Upload/Webcam) ===== */
+.method-card {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(14px);
+  padding: 22px;
+  border-radius: 16px;
+  margin-top: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+}
+
+.method-card.active {
+  display: block !important;
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+
+/* ===== Webcam Video ===== */
+#video {
+  width: 100%;
+  border-radius: 16px;
+  margin-top: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+
+/* ===== Webcam Controls ===== */
+.webcam-controls {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.webcam-controls button {
+  background: var(--accent);
+  color: white;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.webcam-controls button:hover {
+  background: var(--accent-hover);
+}
+
+
+/* ===== Webcam Emotion Output ===== */
+.emotion-result {
+  margin-top: 20px;
+  padding: 18px;
+  background: var(--section-bg);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.emoji {
+  font-size: 52px;
+}
+
+.emotion-label {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+
+/* ===== Progress Bar ===== */
+.progress-bar {
+  width: 85%;
+  height: 12px;
+  margin: 14px auto;
+  background: rgba(255,255,255,0.4);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--bar-gradient);
+  border-radius: 8px;
+  transition: width 0.5s ease-in-out;
+}
+
+.emotion-type {
+  margin-top: 8px;
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+
+/* ===== Result Card ===== */
+.result-card {
+  flex: 1;
+  min-width: 350px;
+  background: var(--section-bg);
+  padding: 22px;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.emotion-summary {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.big-emoji {
+  font-size: 56px;
+  margin-bottom: 10px;
+}
+
+
+/* ===== Chart Card ===== */
+.chart-card {
+  background: var(--section-bg);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(12px);
+  margin-top: 20px;
+  text-align: center;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+}
+
+.chart-card h4 {
+  color: var(--accent);
+}
+
+canvas#emotionChart {
+  max-width: 330px;
+  margin: 0 auto;
+}
+
+
+/* ===== Animation ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .card-wrapper {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .quote-box {
+    font-size: 1rem;
+  }
+}

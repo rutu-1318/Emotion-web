@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmotionAI - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body data-hover-sound="{{ url_for('static', filename='audio/hover.mp3') }}">
+
+  <!-- Top Bar -->
+  <header class="topbar fade-in transparent-header">
+    <div class="logo">
+      <img 
+        src="{{ url_for('static', filename='images/logo_black.png') }}" 
+        alt="EmotionAI Logo" 
+        class="logo-img theme-logo">
+    </div>
+
+    <div class="topbar-right">
+      
+      <!-- Detection Dropdown -->
+      <div class="dropdown detection-dropdown">
+        <button class="detection-btn">🧪 Detection</button>
+        <div class="dropdown-menu">
+          <a href="{{ url_for('text_detector') }}" class="dropdown-item">📝 Text</a>
+          <a href="{{ url_for('audio_detector') }}" class="dropdown-item">🎤 Audio</a>
+          <a href="{{ url_for('face_detector') }}" class="dropdown-item">📷 Face</a>
+        </div>
+      </div>
+
+      <!-- Profile Dropdown -->
+      <div class="dropdown profile-dropdown">
+        <button class="profile-btn">
+          {{ session['username'][0]|upper }}
+        </button>
+        <div class="dropdown-menu">
+          <p class="dropdown-username">👤 {{ session['username'] }}</p>
+          <a href="{{ url_for('logout') }}" class="dropdown-item logout">🚪 Logout</a>
+        </div>
+      </div>
+
+      <!-- Settings Dropdown -->
+      <div class="dropdown settings-dropdown">
+        <button class="settings-btn">⚙️</button>
+        <div class="dropdown-menu">
+          <button id="toggle-theme" class="dropdown-item">🌙 Dark Mode</button>
+          <button id="toggle-audio" class="dropdown-item">🔊 Toggle Hover Audio</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- Main Container -->
+  <main class="home-container">
+
+    <!-- Welcome Section -->
+    <section class="welcome-card fade-in-up">
+      <h1>Welcome, {{ session['username'] }} 👋</h1>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in-up">
+      <h1 class="hero-title">Understand Emotions with AI</h1>
+      <p class="hero-subtitle">
+        EmotionAI helps you explore human emotions through <strong>text</strong>, <strong>audio</strong>, and <strong>facial expressions</strong>.
+        Discover how artificial intelligence can analyze and detect emotional states in real time.
+      </p>
+    </section>
+
+    <!-- Heading for Emotions Scroll -->
+    <section class="emotion-heading fade-in-up">
+      <h2>─── ✦ Types of Emotions ✦ ───</h2>
+    </section>
+
+    <!-- Infinite Scrolling Emotion Gallery -->
+    <section class="emotion-gallery fade-in-up">
+      <div class="gallery-wrapper">
+        <div class="gallery-track" id="emotion-track">
+          {% for emotion, label in [
+            ('happy.jpg', 'Happy'),
+            ('happy2.jpg', 'Happy'),
+            ('sad.jpg', 'Sad'),
+            ('sad2.jpg', 'Sad'),
+            ('angry.jpg', 'Angry'),
+            ('angry2.jpg', 'Angry'),
+            ('disgust.jpg', 'Disgust'),
+            ('neutral.jpg', 'Neutral')
+          ] %}
+            <div class="emotion-item">
+              <img class="emotion-img" src="{{ url_for('static', filename='images/emotions/' ~ emotion) }}" alt="{{ label }}">
+              <span class="caption">{{ label }}</span>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="highlight-marker"></div>
+      </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section fade-in-up">
+      <h2>✨ Try a Quick Demo ✨</h2>
+      
+      <!-- Demo Form -->
+      <form id="demo-form" class="demo-form">
+        <input type="text" id="demo-text" name="demo_text" placeholder="Type something to detect emotion..." required>
+        <button type="submit">Detect Emotion</button>
+      </form>
+
+      <!-- Result Section (hidden initially) -->
+      <div id="demo-result" class="demo-result hidden">
+        <h3>🔍 Result</h3>
+        <p><strong>Emotion:</strong> <span id="result-emotion">-</span></p>
+        <p><strong>Confidence:</strong> <span id="result-confidence">-</span></p>
+      </div>
+
+      <!-- Mode Cards -->
+      <div id="mode-cards" class="mode-cards">
+        <a href="{{ url_for('text_detector') }}" class="mode-card">
+          <div class="icon">📝</div>
+          <div class="label">Text Detection</div>
+        </a>
+
+        <a href="{{ url_for('audio_detector') }}" class="mode-card">
+          <div class="icon">🎤</div>
+          <div class="label">Audio Detection</div>
+        </a>
+
+        <a href="{{ url_for('face_detector') }}" class="mode-card">
+          <div class="icon">📷</div>
+          <div class="label">Face Detection</div>
+        </a>
+
+        <a href="{{ url_for('about') }}" class="mode-card">
+          <div class="icon">❤️</div>
+          <div class="label">Built with AI</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section fade-in-up">
+      <h2>About EmotionAI</h2>
+      <p>
+        EmotionAI is a cutting-edge project that leverages artificial intelligence to understand human emotions.
+        It supports emotion detection from text, audio, and facial inputs — giving you a deeper insight into emotional intelligence.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer fade-in">
+    <p>© 2025 EmotionAI — All Rights Reserved</p>
+  </footer>
+
+  <!-- Script -->
+  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
+</html>

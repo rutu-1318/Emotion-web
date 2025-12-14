@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Emotion Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/text_detector.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/text_detector.js') }}" defer></script>
+</head>
+<body>
+  <!-- === Top Bar === -->
+  <header class="top-bar">
+    <div class="top-left">
+      <h2>📝 Text Detection</h2>
+    </div>
+    <div class="top-right">
+      <a href="{{ url_for('home') }}" class="nav-btn">🏠 Home</a>
+
+      <div class="dropdown">
+        <button>🧭 Detection ▾</button>
+        <div class="dropdown-menu">
+          <a href="{{ url_for('audio_detector') }}">Audio Detection</a>
+          <a href="{{ url_for('face_detector') }}">Face Detection</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button>⚙️ Settings ▾</button>
+        <div class="dropdown-menu">
+          <button id="toggle-theme">🌙 Dark Mode</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- === Intro Section === -->
+  <section class="intro fade-in">
+    <h3>How Text Detection Works</h3>
+    <p>
+      Our system uses advanced Natural Language Processing (NLP) models to analyze the
+      text you enter or upload. It identifies emotional cues such as <strong>Anger</strong>, 
+      <strong>Fear</strong>, <strong>Joy</strong>, <strong>Love</strong>, 
+      <strong>Sadness</strong>, and <strong>Surprise</strong>. 
+      The detected emotion is displayed with confidence score and detailed probability distribution.
+    </p>
+  </section>
+
+  <!-- === Main Card Wrapper === -->
+  <div class="card-wrapper">
+    <!-- Text Input Card -->
+    <div class="input-card fade-in-up">
+      <form method="POST" action="{{ url_for('detect_text') }}" enctype="multipart/form-data">
+        <label for="text">Enter Text</label>
+        <textarea name="text" id="text" rows="6" placeholder="Type your text here..."></textarea>
+
+        <div class="or-separator">OR</div>
+
+        <label for="text-file">Upload a .txt file</label>
+        <input type="file" name="file" id="text-file" accept=".txt" />
+
+        <button type="submit" class="analyze-btn">🔍 Detect Emotion</button>
+      </form>
+    </div>
+
+    <!-- Result Card -->
+    <div class="result-card fade-in-up">
+      {% if emotion_result and emotion_result.labels and emotion_result.probabilities %}
+        <div class="result-label"></div>
+
+        <!-- Motivational Quote -->
+        <div id="quote-section" class="quote-box"></div>
+
+        <!-- Always visible chart card -->
+        <div class="chart-card">
+          <h4>📊 Emotion Statistics</h4>
+          <canvas id="emotionChart" width="400" height="250"></canvas>
+        </div>
+
+        <!-- Emotion Data for Chart.js -->
+        <script id="emotion-data" type="application/json">
+          {
+            "labels": {{ emotion_result.labels | tojson }},
+            "probabilities": {{ emotion_result.probabilities | tojson }}
+          }
+        </script>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  {% if error %}
+    <div class="error-msg">{{ error }}</div>
+  {% endif %}
+
+  <!-- JS to auto-fill textarea with .txt file content -->
+  <script>
+    document.getElementById("text-file").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("text").value = e.target.result;
+      };
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>

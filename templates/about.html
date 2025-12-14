@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - EmotionAI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">🤖 EmotionAI</div>
+    <div class="topbar-right">
+      <a href="{{ url_for('home') }}" class="back-home">🏠 Home</a>
+      <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+  </div>
+
+  <div class="about-container">
+    <h1>About EmotionAI</h1>
+    <p class="intro">
+      EmotionAI is an intelligent multi-modal system that detects human emotions using Text, Audio, and Facial expressions. It leverages state-of-the-art machine learning models to make accurate predictions in real time or from uploaded data.
+    </p>
+
+    <div class="card">
+      <h2>📝 Text Emotion Detection</h2>
+      <p>This module analyzes user input or uploaded `.txt` files and classifies emotions based on semantic and contextual features.</p>
+      <ul>
+        <li><strong>Model:</strong> Logistic Regression</li>
+        <li><strong>Features:</strong> TF-IDF vectorization</li>
+        <li><strong>Emotions:</strong> Happy, Sad, Angry, Neutral, Fear</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>🎧 Audio Emotion Detection</h2>
+      <p>Extracts features from speech like MFCC, pitch, and energy, and uses them to determine emotional states.</p>
+      <ul>
+        <li><strong>Model:</strong> Random Forest</li>
+        <li><strong>Features:</strong> MFCCs, Chroma, Zero-Crossing Rate</li>
+        <li><strong>Emotions:</strong> Happy, Sad, Angry, Fear, Surprise</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>📷 Face Emotion Detection</h2>
+      <p>Detects emotions from facial expressions using deep learning and computer vision techniques.</p>
+      <ul>
+        <li><strong>Model:</strong> CNN (Convolutional Neural Network)</li>
+        <li><strong>Features:</strong> Real-time face landmarks + expression features</li>
+        <li><strong>Emotions:</strong> Happy, Sad, Angry, Disgust, Surprise, Neutral</li>
+      </ul>
+    </div>
+
+    <div class="footer-note">
+      <p>Built with ❤️ by Group G8. Powered by Python, Flask, and Machine Learning.</p>
+    </div>
+  </div>
+</body>
+</html>

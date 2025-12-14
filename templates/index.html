@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emotion Detection</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+  <div class="index-container">
+    
+    <!-- Emotion AI Logo -->
+    <div class="logo-container">
+      <img src="{{ url_for('static', filename='images/emotion_ai_logo.png') }}" 
+           alt="Emotion AI Logo" 
+           class="logo">
+    </div>
+
+    <!-- Welcome Card -->
+    <div class="index-card fade-in">
+      <h1 class="index-title">Welcome to Emotion Detection</h1>
+      <p class="index-subtitle">
+        AI-powered emotion recognition from text, audio, and facial expressions.
+      </p>
+      <div class="index-buttons">
+        <button class="index-btn btn-login">Login</button>
+        <button class="index-btn btn-signup">Signup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Animation -->
+  <canvas id="backgroundParticles"></canvas>
+
+  <!-- JavaScript -->
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

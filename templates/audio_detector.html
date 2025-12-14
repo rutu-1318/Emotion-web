@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Audio Emotion Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/audio_detector.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/audio_detector.js') }}" defer></script>
+</head>
+<body>
+  <!-- === Top Bar === -->
+  <header class="top-bar">
+    <div class="top-left">
+      <h2>🎵 Audio Detection</h2>
+    </div>
+    <div class="top-right">
+      <a href="{{ url_for('home') }}" class="nav-btn">🏠 Home</a>
+
+      <div class="dropdown">
+        <button>🧭 Detection ▾</button>
+        <div class="dropdown-menu">
+          <a href="{{ url_for('text_detector') }}">Text Detection</a>
+          <a href="{{ url_for('face_detector') }}">Face Detection</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button>⚙️ Settings ▾</button>
+        <div class="dropdown-menu">
+          <button id="toggle-theme">🌙 Dark Mode</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- === Intro Section === -->
+  <section class="intro fade-in">
+    <h3>How Audio Detection Works</h3>
+    <p>
+      Our system uses advanced Audio Processing and ML models to analyze uploaded or recorded audio.
+      It detects emotional cues such as <strong>Anger</strong>, <strong>Fear</strong>, 
+      <strong>Joy</strong>, <strong>Love</strong>, <strong>Sadness</strong>, and <strong>Surprise</strong>. 
+      Maximum audio duration allowed is <strong>10 seconds</strong>.
+    </p>
+  </section>
+
+  <!-- === Main Card Wrapper === -->
+  <div class="card-wrapper">
+    <!-- Input Card -->
+    <div class="input-card fade-in-up">
+      <form id="uploadForm" action="{{ url_for('detect_audio') }}" method="POST" enctype="multipart/form-data">
+        <label>Upload Audio (MP3/WAV, max 10s):</label>
+        <input type="file" name="audio" id="audio-file" accept=".wav,.mp3" required>
+        <button type="submit" class="analyze-btn">🔍 Detect Emotion</button>
+      </form>
+
+      <div class="or-separator">OR</div>
+
+      <!-- Microphone Recorder -->
+      <div class="mic-section">
+        <button id="recordBtn" class="analyze-btn">🎙️ Record Audio (Max 10s)</button>
+        <p id="micStatus">Click the button to start recording</p>
+      </div>
+    </div>
+
+    <!-- Result Card -->
+    <div class="result-card fade-in-up">
+      {% if emotion_result and emotion_result.labels and emotion_result.probabilities %}
+        <div class="result-label"></div>
+        <div id="quote-section" class="quote-box"></div>
+
+        <div class="chart-card">
+          <h4>📊 Emotion Statistics</h4>
+          <canvas id="emotionChart" width="400" height="250"></canvas>
+        </div>
+
+        <script id="emotion-data" type="application/json">
+          {
+            "labels": {{ emotion_result.labels | tojson }},
+            "probabilities": {{ emotion_result.probabilities | tojson }}
+          }
+        </script>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  {% if error %}
+    <div class="error-msg">{{ error }}</div>
+  {% endif %}
+</body>
+</html>

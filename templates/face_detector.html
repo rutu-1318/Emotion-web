@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Face Emotion Detection</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/face_detector.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/face_detector.js') }}" defer></script>
+</head>
+
+<body>
+
+  <!-- === Top Bar (same as text detector) === -->
+  <header class="top-bar">
+    <div class="top-left">
+      <h2>🙂 Face Detection</h2>
+    </div>
+
+    <div class="top-right">
+      <a href="{{ url_for('home') }}" class="nav-btn">🏠 Home</a>
+
+      <div class="dropdown">
+        <button>🧭 Detection ▾</button>
+        <div class="dropdown-menu">
+          <a href="{{ url_for('text_detector') }}">Text Detection</a>
+          <a href="{{ url_for('audio_detector') }}">Audio Detection</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button id="toggle-theme">⚙️ Settings ▾</button>
+        <div class="dropdown-menu">
+          <button id="toggle-theme-btn">🌙 Dark Mode</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- === Intro Section === -->
+  <section class="intro fade-in">
+    <h3>How Face Detection Works</h3>
+    <p>
+      Upload an image or use your webcam — our AI model analyzes facial features,
+      detects your emotion, and displays probabilities along with a motivational quote.
+    </p>
+  </section>
+
+  <!-- === Page Layout Wrapper === -->
+  <div class="card-wrapper">
+
+    <!-- ================= INPUT CARD ================= -->
+    <div class="input-card fade-in-up">
+
+      <label>Select Input Method</label>
+
+      <div class="toggle-buttons">
+        <button class="analyze-btn" onclick="activateWebcamMode()">📷 Use Webcam</button>
+        <button class="analyze-btn" onclick="useUpload()">🖼️ Upload Image</button>
+      </div>
+
+      <!-- ==== Upload Mode ==== -->
+      <div class="method-card" id="uploadCard">
+        <form method="POST" action="{{ url_for('detect_face') }}" enctype="multipart/form-data">
+          <label>Upload Image (JPG/PNG)</label>
+          <input type="file" name="image" accept=".jpg,.png" required>
+
+          <!-- Updated Detect Button -->
+          <button class="analyze-btn detect-btn">🔍 Detect Emotion</button>
+        </form>
+      </div>
+
+      <!-- ==== Webcam Mode ==== -->
+      <div class="method-card" id="webcamCard" style="display: none;">
+
+        <video id="video" width="380" height="280" autoplay muted></video>
+
+        <div class="webcam-controls">
+          <button class="analyze-btn" onclick="beginWebcamStream()">▶ Start</button>
+          <button class="analyze-btn" onclick="pauseWebcam()">⏸ Pause</button>
+          <button class="analyze-btn" onclick="resumeWebcam()">⏵ Resume</button>
+          <button class="analyze-btn" onclick="stopWebcam()">⛔ Stop</button>
+        </div>
+
+        <!-- Webcam Live Result Block -->
+        <div class="emotion-result">
+          <div class="emoji" id="emoji">😊</div>
+          <div class="emotion-info">
+            <p class="emotion-label" id="emotionLabel">Neutral</p>
+
+            <div class="progress-bar">
+              <div class="bar-fill" id="emotionBar"></div>
+            </div>
+
+            <span class="emotion-type" id="emotionType">😊 Neutral</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =============== RESULT CARD =============== -->
+    <div class="result-card fade-in-up">
+
+      {% if emotion_result %}
+
+      <!-- Top Emotion Summary -->
+      <div class="emotion-summary">
+        <div class="big-emoji" id="topEmoji">😊</div>
+
+        <div class="result-label">
+          <strong>{{ emotion_result.top_emotion }}</strong> detected  
+          <br>
+          Confidence: {{ emotion_result.confidence }}%
+        </div>
+
+        <!-- QUOTE BOX -->
+        <div class="quote-box" id="quote-section">
+          <!-- JS inserts quote -->
+        </div>
+      </div>
+
+      <!-- Chart Card -->
+      <div class="chart-card">
+        <h4>📊 Emotion Statistics</h4>
+        <canvas id="emotionChart"></canvas>
+      </div>
+
+      <!-- Pass data to JS -->
+      <script id="emotion-data" type="application/json">
+      {
+        "labels": {{ emotion_result.labels | tojson }},
+        "probabilities": {{ emotion_result.probabilities | tojson }}
+      }
+      </script>
+
+      {% endif %}
+    </div>
+
+  </div>
+
+  {% if error %}
+  <div class="error-msg fade-in">{{ error }}</div>
+  {% endif %}
+
+</body>
+</html>

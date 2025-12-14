@@ -1,0 +1,333 @@
+/* ==============================
+   Base Styles
+============================== */
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Background Particles */
+#backgroundParticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ==============================
+   Wrapper Centering
+============================== */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  padding: 15px;
+}
+
+/* ==============================
+   Login Card
+============================== */
+.login-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 45px 35px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: slideFadeIn 0.7s ease-out;
+  color: white;
+}
+
+.login-icon {
+  font-size: 50px;
+  background: rgba(255, 255, 255, 0.25);
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+}
+
+.login-title {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  color: #eee;
+  margin-bottom: 28px;
+}
+
+/* ==============================
+   Input Fields
+============================== */
+form input[type="text"],
+form input[type="password"] {
+  width: 100%;
+  padding: 13px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  animation: inputRise 0.5s ease forwards;
+}
+
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+form input:focus {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.4);
+  transform: translateY(-2px);
+}
+
+/* ==============================
+   Buttons
+============================== */
+.login-btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 18px;
+  background: white;
+  color: #2575fc;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #2575fc;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* ==============================
+   Error Message
+============================== */
+.error-message {
+  color: #fff;
+  background: rgba(244, 67, 54, 0.9);
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  animation: slideFadeIn 0.5s ease;
+}
+
+/* ==============================
+   Links
+============================== */
+.forgot-link {
+  text-align: right;
+  margin-top: -6px;
+  margin-bottom: 14px;
+}
+
+.forgot-link a {
+  font-size: 13px;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.forgot-link a:hover {
+  opacity: 0.75;
+}
+
+.login-options {
+  margin-top: 22px;
+  font-size: 14px;
+}
+
+.login-options a {
+  color: #fff;
+  text-decoration: underline;
+  transition: opacity 0.25s ease;
+}
+
+.login-options a:hover {
+  opacity: 0.75;
+}
+
+/* ==============================
+   Modal Styles (Glassy)
+============================== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.45);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  padding: 28px;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  animation: zoomIn 0.45s ease-out;
+  color: #fff;
+}
+
+.modal-content h3 {
+  margin-bottom: 18px;
+  color: #fff;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 13px;
+  margin: 12px 0;
+  border-radius: 12px;
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 14px;
+  animation: inputRise 0.5s ease forwards;
+}
+
+.modal-content input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 13px;
+  background: white;
+  color: #2575fc;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modal-content button:hover {
+  background: #2575fc;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: white;
+}
+
+.reset-message {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #fff;
+}
+
+/* ==============================
+   Toast Notification
+============================== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  right: -350px;
+  background: rgba(40,40,40,0.9);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.35s ease-in-out;
+}
+
+.toast.show {
+  right: 30px;
+  opacity: 1;
+}
+
+.toast.success { background: linear-gradient(135deg, #34a853, #3cc77e); }
+.toast.error   { background: linear-gradient(135deg, #f44336, #e53935); }
+.toast.info    { background: linear-gradient(135deg, #4285f4, #6aa9ff); }
+
+/* ==============================
+   Animations
+============================== */
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes inputRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.guest-btn {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    background: #f0f0f0;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
+    z-index: 9999;
+}
+
+.guest-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
